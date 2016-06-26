@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>九九乘法表</title>
+		<style>
+			*{margin: 0; padding: 0;}
+			.list{ width: 1080px; height: 270px; margin: 50px auto; border-left: 1px solid #000; border-bottom: 1px solid #000;}
+			li{ list-style: none; display: inline-block; width: 120px; height: 30px; border-top: 1px solid #000; border-right: 1px solid #000; text-align: center; font-size: 18px; line-height: 30px; box-sizing: border-box;}
+			
+			
+		</style>
+	</head>
+	<body>
+	
+	<ul class="list"></ul>
+	
+	
+	<script type="text/javascript">
+	window.onload = function(){
+		var oUl = document.querySelector('.list');
+		var str = '';
+		
+		for(var i=1;i<10;i++){
+			for(var j=1;j<=i;j++){
+				str += '<li>'+j+' * '+i+' = '+(i*j)+'</li>';
+			}
+			str+='<br>';
+		}
+		oUl.innerHTML =str;
+	}
+	</script>
+		
+	</body>
+</html>

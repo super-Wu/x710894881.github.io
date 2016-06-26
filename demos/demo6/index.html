@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>"V"字形的变换</title>
+	<style>
+	*{ margin: 0; padding: 0;}
+	body{ padding: 50px;}
+	.box{ position: relative; margin-top: 20px;}
+	.box div{ position: absolute; width: 50px; height: 50px; background: red; color: #fff; font-size: 24px; line-height: 50px; text-align: center;}
+	</style>
+</head>
+
+<body>
+
+<input type="button" id="btn" value="按钮" />
+<div class="box"></div>
+
+<script>
+window.onload = function(){
+	var oInput = document.getElementById("btn");
+	var oBox = document.querySelector(".box");
+	var str = '';
+	var len = 5;	//生成V的个数
+	var half = parseInt(len/2);	//中间值
+	var n = 0;	//用来判断方向
+	var top; 	//声明变量，用来存top值
+	var left;	//声明变量，用来存left值
+	
+	oInput.onclick = function(){
+		//产生0，1，2，3的循环
+		n%=4;
+		//先清空
+		str = '';
+		//根据n值得变化，利用for循环生成相应的V
+//		if(n==0){
+			//“^”字形
+//			for(var i=0;i<len;i++){
+//				if(i<=half){
+//					str += '<div style="top:'+ (half-i)*50 +'px; left:'+ i*50 +'px;">'+ i +'</div>';
+//				}else{
+//					str += '<div style="top:'+ (i-half)*50 +'px; left:'+ i*50 +'px;">'+ i +'</div>';
+//				}
+//			}
+//		}
+//		if(n==1){
+			//“>”字形
+//			for(var i=0;i<len;i++){
+//				if(i<=half){
+//					str += '<div style="top:'+ i*50 +'px;left:'+ i*50 +'px;">'+ i +'</div>';
+//				}else{
+//					str += '<div style="top:'+ i*50 +'px;left:'+ (len-i-1)*50 +'px;">'+ i +'</div>';
+//				}
+//			}
+//		}
+//		if(n==2){
+			//“V”字形
+//			for(var i=0;i<len;i++){
+//				if(i<=half){
+//					str += '<div style="top:'+ i*50 +'px;left:'+ i*50 +'px;">'+ i +'</div>';
+//				}else{
+//					str += '<div style="top:'+ (len-i-1)*50 +'px;left:'+ i*50 +'px;">'+ i +'</div>';
+//				}
+//			}
+//		}
+//		if(n==3){
+			//“<”字形
+//			for(var i=0;i<len;i++){
+//				if(i<=half){
+//					str += '<div style="top:'+ i*50 +'px; left:'+ (half-i)*50 +'px;">'+ i +'</div>';
+//				}else{
+//					str += '<div style="top:'+ i*50 +'px; left:'+ (i-half)*50 +'px;">'+ i +'</div>';
+//				}
+//			}
+//		}
+		//以下做了简单的优化
+		for(var i=0;i<len;i++){
+			if(n==0){
+				if(i<=half){
+					top = (half-i)*50;
+					left = i*50;
+				}else{
+					top = (i-half)*50;
+					left = i*50;
+				}
+			}
+			if(n==1){
+				if(i<=half){
+					top = i*50;
+					left = i*50;
+				}else{
+					top = i*50;
+					left= (len-i-1)*50;
+				}
+			}
+			if(n==2){
+				if(i<=half){
+					top = i*50;
+					left = i*50;
+				}else{
+					top = (len-i-1)*50;
+					left = i*50;
+				}
+			}
+			if(n==3){
+				if(i<=half){
+					top = i*50;
+					left = (half-i)*50;
+				}else{
+					top = i*50;
+					left = (i-half)*50;
+				}
+			}
+			str += '<div style="top:'+ top +'px; left:'+ left +'px;">'+ i +'</div>';
+		}
+
+		oBox.innerHTML = str;
+		n++;
+	};
+	
+}
+</script>
+
+</body>
+</html>

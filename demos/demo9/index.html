@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>百度评分</title>
+	<style>
+	*{ margin: 0; padding: 0;}
+	body{ padding:50px 0 0 50px; background: #f6f6f6;}
+	
+	.box{}
+	.box dt{ float: left; line-height: 20px;} 
+	.box dd{ float: left; width: 21px; height: 20px; background: url(img/star.png) no-repeat; cursor: pointer;}
+	.box span{ padding-left: 20px; line-height: 20px;}
+	</style>
+</head>
+
+<body>
+
+<div class="box" id="box">
+	<dl>
+		<dt>总体评分:</dt>
+		<dd></dd>
+		<dd></dd>
+		<dd></dd>
+		<dd></dd>
+		<dd></dd>
+	</dl>
+	<span>你还没有评分哦~</span>
+</div>
+
+<script>	
+	var box = document.getElementById('box');
+	var dds = box.getElementsByTagName('dd');
+	var span = box.getElementsByTagName('span')[0];
+	var txtArr = ['1分 失望','2分 不满','3分 一般','4分 满意','5分 惊喜'];	//用于存储评价
+	var clickNum = -1;	//声明一个变量，用于存储点击时候的值
+	
+	//给dd添加事件
+	for(var i=0;i<dds.length;i++){
+		//自定义索引值
+		dds[i].index = i;
+		//鼠标移入事件
+		dds[i].onmouseover = function(){
+			//全部清除
+			for(var i=0;i<dds.length;i++){
+				dds[i].style.background = '';
+			};
+			
+			//移入时，当前移入的及前面的星星要改变
+			for(var i=0;i<=this.index;i++){
+				//判断前两个星星
+				if(this.index<2){
+					dds[i].style.background = 'url(img/star1.png)';
+				}else{	
+					//从第三个开始，星星要一致，所以重新给dd定义星星
+					
+					dds[i].style.background = 'url(img/star2.png)';
+					
+				}
+				
+			};
+			//根据当前移入，选择相应的评价
+			span.innerHTML = txtArr[this.index];
+			
+		};
+		
+		//鼠标点击事件
+		dds[i].onclick = function(){
+			//当点击的时候，把当前点击的索引值赋值给clickNum,存储点击时候的索引值
+			clickNum = this.index;	
+		};
+		
+		//鼠标移出事件
+		dds[i].onmouseout = function(){
+			//全部清除
+			for(var i=0;i<dds.length;i++){
+				dds[i].style.background = '';
+			}
+			//当没有点击的时候，clickNum为-1，不满足判断条件，此时不会走for循环
+			//当有点击的时候，clickNum的值发生变化，大于0，此时就会走for循环，根据不同的条件选择不同的星星
+			for(var i=0;i<=clickNum;i++){
+				if(i<2){
+					dds[i].style.background = 'url(img/star1.png)';
+				}else{
+					for(var j=0;j<=clickNum;j++){	//此处应该是clickNum,如果是this.index会有bug
+						dds[j].style.background = 'url(img/star2.png)';
+					}
+				}
+			};
+			
+			//当点击的时候，clickNum的值发生了变化，最小为0（因为下标是从0开始的），显示相应的文字
+			if( clickNum >=0 ){
+				span.innerHTML = txtArr[clickNum];
+			}else{
+				span.innerHTML = '你还没有评分哦~';
+			}
+			
+		};
+			
+	};
+	
+</script>
+
+
+</body>
+</html>

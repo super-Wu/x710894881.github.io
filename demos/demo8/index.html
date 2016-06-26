@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>QQ好友列表</title>
+	<style>
+	*{margin: 0; padding: 0;}
+	li{ list-style: none;}
+	
+	.list{width: 200px; margin: 20px auto;}
+	.list h3{ width: 100%; border-bottom: 1px solid #fff; font-size: 20px; line-height:30px; color: #fff; background: #ccc; text-indent: 10px; cursor: pointer;}
+	.list ul{ margin-bottom: 5px;}
+	.list li{ margin-top: -1px; font-size: 14px; line-height: 30px; text-indent: 20px; border: 1px solid #000;}
+	.list li:hover{ background: #ccc; color: #fff;}
+	.list ul{ display: none;}
+	.list h3.active{ background: blue;}
+	.list li.active{ background: #3CF45F;}
+	</style>
+</head>
+
+<body>
+
+<div class="list" id="list">
+	<h3>我的好友</h3>
+	<ul>
+		<li>小李</li>
+		<li>小王</li>
+		<li>张三</li>
+		<li>李四</li>
+	</ul>
+	<h3>我的同学</h3>
+	<ul>
+		<li>小白</li>
+		<li>小黑</li>
+		<li>小米</li>
+	</ul>
+	<h3>黑名单</h3>
+	<ul>
+		<li>黑名单1</li>
+		<li>黑名单2</li>
+	</ul>
+</div>
+
+<script>
+window.onload=function(){
+	//获取元素
+	var oList = document.getElementById('list');
+	var aH3 = oList.getElementsByTagName('h3');
+	var aUl = document.querySelectorAll('#list ul');
+	var aLi = oList.querySelectorAll('li');
+	
+	
+	for(var i=0;i<aH3.length;i++){
+		//定义索引值
+		aH3[i].index = i;
+		//给标题添加点击事件
+		aH3[i].onclick = function(){
+			//for循环清除样式，如果不是"当前"的标题就去掉当前的className;对应的ul的display设置为none
+			for(var i=0;i<aH3.length;i++){
+				if( i != this.index ){
+					aH3[i].className ='';
+					aUl[i].style.display = 'none';
+				}
+			}
+			
+			//通过当前的判断，如果className为空，就添加className，对应的ul显示。反之，就清除。
+			if( this.className == '' ){
+				this.className = 'active';
+				aUl[this.index].style.display = 'block';
+			}else{
+				this.className = '';
+				aUl[this.index].style.display = 'none';
+			}
+			
+		};
+	}
+	
+	//给li添加点击事件，原理和给标题添加点击事件是一样的原理
+	for (var i=0;i<aLi.length;i++) {
+		aLi[i].index = i;
+		aLi[i].onclick = function(){
+			for (var i=0;i<aLi.length;i++) {
+				if( i != this.index ){
+					aLi[i].className ='';
+				}
+			}
+			
+			if( this.className == '' ){
+				this.className = 'active';
+			}else{
+				this.className = '';
+			}
+		}
+	}
+	
+		
+}
+</script>
+	
+</body>
+</html>

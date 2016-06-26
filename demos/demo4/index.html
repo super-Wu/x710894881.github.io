@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>带缩略图的轮播图</title>
+	<style>
+	*{ margin: 0; padding: 0;}
+	li{ list-style: none;}
+	img{ border: none; vertical-align: middle;}
+	a{ text-decoration: none;}
+	
+	h1{ text-align: center;}
+	.box{ width: 600px; height: 400px; margin:10px auto 0; border: 5px solid #ccc; position: relative;}
+	/* 左右按钮 */
+	.box a{ position: absolute; top: 0; bottom: 0; z-index: 3; margin: auto; width: 40px; height: 40px; background: rgba(0,0,0,.4); color: #fff; text-align: center; font-size: 30px; line-height: 40px;}
+	.box a:hover{ background: rgba(0,0,0,0.8);}
+	.box a.prev{ left: 10px;}
+	.box a.next{ right: 10px;}
+	
+	/* 下面的小点 */
+	.box ul{ position: absolute;left: 0; right: 0; bottom: 10px; z-index: 3; font-size: 0; text-align: center;}
+	.box ul li{ display: inline-block; width: 14px; height: 14px; margin: 0 2px; background: #ccc; border-radius: 50%; cursor: pointer; position: relative;}
+	.box ul li.active{ background: yellow;}
+	.box .pic{ position: absolute; bottom: 20px; left:50%; margin-left:-32px; border: 2px solid #fff;}
+	.box .pic:after{ content: ''; position: absolute; bottom:-10px; left: 50%; margin-left: -5px; width: 0; height: 0; border-width: 5px; border-style: solid; border-color:#fff transparent transparent;}
+	
+	</style>
+</head>
+
+<body>
+
+<h1>带缩略图的轮播图</h1>
+<div class="box" id="box">
+	<a href="javascript:;" class="prev">&lt;</a>
+	<a href="javascript:;" class="next">&gt;</a>
+	<img src="" width="600" height="400" alt="" />
+	<ul>
+		<!--<li class="active"></li>
+		<li><div class="pic"><img src="img/pic1.png" width="60" height="40" alt="" /></div></li>
+		<li></li>-->
+	</ul>
+</div>
+
+<script>
+
+	var oBox = document.getElementById('box');
+	var oPrev = oBox.querySelector('.prev');
+	var oNext = oBox.querySelector('.next');
+	var oImg = oBox.querySelector('#box>img');
+	var oUl = oBox.querySelector('ul');
+	var imgArr = ['img/pic1.jpg', 'img/pic2.jpg', 'img/pic3.jpg', 'img/pic4.jpg', 'img/pic5.jpg'];
+	var n = 0;
+
+	oImg.src = imgArr[n];
+
+	//动态添加小圆点
+	for (var i = 0; i < imgArr.length; i++) {
+		if (i == 0) {
+			oUl.innerHTML += '<li class="active"></li>';
+		} else {
+			oUl.innerHTML += '<li></li>'
+		}
+	}
+	//获取元素
+	var aLi = oUl.querySelectorAll('li');
+
+	//点击下一张
+	oNext.onclick = function() {
+		n++;
+		if (n > imgArr.length - 1) {
+			n = 0;
+		}
+
+		changeImg()
+
+	}
+
+
+	//点击下一张
+	oPrev.onclick = function() {
+		n--;
+		if (n < 0) {
+			n = imgArr.length - 1;
+		}
+		changeImg();
+
+	}
+
+
+	//给下面的圆点添加点击事件
+	for (var i = 0; i < aLi.length; i++) {
+		//定义一个索引值
+		aLi[i].index = i;
+		//鼠标移入事件
+		aLi[i].onmouseover = function() {
+			this.innerHTML = '<div class="pic"><img src="' + imgArr[this.index] + '" width="60" height="40" alt="" /></div>';
+		};
+		//鼠标移出事件
+		aLi[i].onmouseout = function() {
+			aLi[this.index].innerHTML = '';
+		};
+		//鼠标点击事件
+		aLi[i].onclick = function() {
+			n = this.index;
+			
+			changeImg();
+		};
+	}
+
+	function changeImg() {
+		oImg.src = imgArr[n];
+
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].className = '';
+		}
+		aLi[n].className = 'active';
+	}
+
+</script>
+
+
+
+
+</body>
+</html>
