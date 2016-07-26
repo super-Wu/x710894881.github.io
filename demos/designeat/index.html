@@ -12,11 +12,12 @@
 </head>
 
 <body>
-
+	
+<span class="personFixed"></span>
 <!-- 第一部分 -->
 <section class="slide slide1">
 	<div class="container">
-		<img class="hill move" data-offset="2" src="images/home_cont_bg.jpg" alt="" draggable="false" />
+		<img class="hill move" data-offset="2" src="images/home_cont_bg.png" alt="" draggable="false" />
 		<div class="text">
 			<h2>WELCOME TO THE WORLD OF</h2>
 			<h1>DESIGNEAT</h1>
@@ -70,14 +71,13 @@
 				</li>
 			</ol>
 		</div>
-		<span class="person"></span>
 	</div>
 </section>
 
 <!-- 第三部分 -->
 <section class="slide slide3">
 	<div class="container">
-		<img class="forest" src="images/trees-marta.png" width="1320" height="943" alt="" draggable="false" />
+		<img class="forest move" data-offset="2" src="images/trees-marta.png" width="1320" height="943" alt="" draggable="false" />
 		<!-- 跷跷板 -->
 		<div class="seesaw">
 			<div class="inforL">
@@ -92,7 +92,7 @@
 				</ul>
 				<span class="clickR"></span>
 			</div>
-			<div class="inforR">
+			<div class="inforR hide">
 				<h2>Bojan Joncic</h2>
 				<h3>Designeats CEO DIRECTOR LEGEND</h3>
 				<p>Hi there, my name is Bojan and I am the backbone of this “team”. I come up with, like, thousands of great ideas and I easily translate them to reality. Basically… I've made this world work, the fat one, over there, just answers the phone and plays with her pen.</p>
@@ -145,26 +145,22 @@
 	<!-- 作品集合 -->
 	<div class="worksWrap">
 		<h3>Selected work</h3>
-		<div class="works">
-			<nav class="worksList">
-				<a href="javascript:;" class="active">All</a>
-				<a href="javascript:;">Web</a>
-				<a href="javascript:;">Mobile</a>
-				<a href="javascript:;">Demos</a>
-			</nav>
-			<div class="worksBox">
-				<ul>
-					<li>
-						<a href="#">
-							<img src="images/musculus.jpg" alt="" draggable="false"/>
-						</a>
-					</li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
+		<div class="worksBox">
+			<ul>
+				<!--<li>
+					<a href="#" target="_blank"></a>
+					<img src="images/musculus.jpg" alt="" draggable="false" />
+					<div class="txt">
+						<p>这是描述性文字</p>
+						<a href="#"></a>
+					</div>
+				</li>-->
+			</ul>
+			<div class="scroll">
+				<span></span>
 			</div>
 		</div>
+		
 	</div>
 </section>
 
@@ -172,24 +168,38 @@
 <!-- 第五部分  canvas写星空  css3星星、流星 -->
 <section class="slide slide5">
 	<div class="container">
-		<img class="sky move" data-offset="2" src="images/contact_cont_bg.jpg" width="1600" height="880" draggable="false"/>
+		<img class="sky move" data-offset="2" src="images/contact_cont_bg.png" width="1600" height="880" draggable="false"/>
 		<span class="person move" data-offset="3"></span>
 		<div class="text">
 			<h2>Get in touch</h2>
 			<p>Did you know that the greatest ideas pop into our minds during the sleep, while we dream? Well, this is our dream job, so let us dream amazing ideas for you, and turn them into great results while awake.</p>
 			<a href="#" target="_blank">Hire us</a>
 		</div>
+		<!-- 星星 -->
+		<div class="starBox">
+			<div class="star star1"></div>
+			<div class="star star2"></div>
+			<div class="star1 star3"></div>
+			<div class="star star4"></div>
+		</div>
+		<!-- 流星 -->
+		<div class="lx">
+			<img src="images/lx.png" draggable="false" alt="" />
+			<img src="images/lx.png" draggable="false" alt="" />
+			<img src="images/lx.png" draggable="false" alt="" />
+			<img src="images/lx.png" draggable="false" alt="" />
+		</div>
 	</div>
 </section>
 
 <!-- 列表 -->
 <nav class="menu">
-	<a href="javascript:;" class="active"></a>
-	<a href="javascript:;"></a>
-	<a href="javascript:;"></a>
-	<a href="javascript:;"></a>
-	<a href="javascript:;"></a>
 </nav>
+
+
+<script src="js/data.js"></script>
+<script src="js/mTween.js"></script>
+<script src="js/index.js"></script>
 
 </body>
 </html>
