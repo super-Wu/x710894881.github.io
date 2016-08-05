@@ -13,33 +13,50 @@ ready(function(){
 		aPos.push(getPos(slide[i]));
 	}
 	//第一屏
-	//第一屏中的视觉差滚动
 	move(slide[0]);
 	
-	
 	//第二屏
-	//获取第二屏中的元素
 	var list=slide[1].getElementsByClassName('list')[0];
+	
+	var ol=document.createElement('ol');
+	var html='';
+	listData.forEach(function(elem,i){
+		html+='<li>\
+					<span>'+ elem.time +'</span>\
+					<div class="txt">\
+						<p>'+ elem.content1 +'</p>\
+						<p>'+ elem.content2 +'</p>\
+					</div>\
+				</li>';
+	});
+	ol.innerHTML=html;
+	list.appendChild(ol);
+
 	var lis=list.querySelectorAll('li');
 	var slideTop2=aPos[1].t;
 	
 
 	//第三屏
-	//获取第三屏中的元素
-	var seesaw=slide[2].getElementsByClassName('seesaw')[0];
-	var info=slide[2].querySelectorAll('div[class^="infor"]');
-	var seesawImg=slide[2].querySelector('.seesawImg');
+	var seesaw = slide[2].getElementsByClassName('seesaw')[0];
+	var infos = slide[2].querySelectorAll('div[class^="infor"]');
+	var seesawImg = slide[2].querySelector('.seesawImg');
+	var clicks = seesawImg.querySelectorAll('span[class^="click"]');
+	console.log(clicks);
 	var onOff=true;
 	//给中间的跷跷板添加点击事件
 	seesawImg.addEventListener('click',function(){
 		onOff?addClass('toggle',seesaw):removeClass('toggle',seesaw);
 	
 		if(onOff){
-			addClass('fadeInUp',info[1]);
-			removeClass('fadeInUp',info[0]);
+			addClass('fadeInUp',infos[1]);
+			removeClass('fadeInUp',infos[0]);
+			addClass('click',seesawImg);
+			removeClass('click2',seesawImg);
 		}else{
-			addClass('fadeInUp',info[0]);
-			removeClass('fadeInUp',info[1]);
+			addClass('fadeInUp',infos[0]);
+			removeClass('fadeInUp',infos[1]);
+			addClass('click2',seesawImg);
+			removeClass('click',seesawImg);
 		}
 		onOff=!onOff;
 	},false);
@@ -96,17 +113,17 @@ ready(function(){
 		var ev=ev||event;
 		var disX=ev.clientX-this.offsetLeft;
 		
-		document.onmousemove=function(ev){
+		document.addEventListener('mousemove',downHandle);
+		function downHandle(ev){
 			var ev=ev||event;
 			leftNum=ev.clientX-disX;			
-			slideTo();			
+			slideTo();	
 		}
-		document.onmouseup=function(){
-			document.onmousemove=document.onmouseup=null;
-		}
+		document.addEventListener('mouseup',function(){
+			document.removeEventListener('mousemove',downHandle);
+		});
 		return false;
 	}
-	
 	//滚轮控制
 	mScroll(worksBox,function(){
 		//往上滚动
@@ -129,7 +146,6 @@ ready(function(){
 		}else if(leftNum>=spanMax){
 			leftNum=spanMax;
 		}
-		
 		var scale=leftNum/spanMax;
 		scrollSpan.style.left=leftNum+'px';
 		worksBoxUl.style.left= -scale*liMax +'px';
@@ -137,8 +153,8 @@ ready(function(){
 	
 		
 	//第五屏
-	//第五屏中的视觉差滚动
 	move(slide[4]);
+	
 	
 	//右侧点击
 	//获取元素
@@ -166,10 +182,10 @@ ready(function(){
 			//给当前的目标点添加class
 			target.className='active';
 			//获取滚动条的距离
-			var scrollPos=document.documentElement.scrollTop || document.body.scrollTop
+			var scrollPos=document.documentElement.scrollTop || document.body.scrollTop;
 			//点击当前按钮的高度
 			var t=aPos[target.dataset.index].t;
-			console.log(t);
+
 			//添加定时器，设置滚动条的高度
 			var timer=setInterval(function(){
 				//当scrollPos>t的时候，说明滚动条要往上移动
@@ -212,7 +228,6 @@ ready(function(){
 				},800*i,i);
 			}
 		}
-		
 		//处理第四屏
 		var num=0;
 		if(scrollTop>=slideTop4-cenWinH){
@@ -250,153 +265,10 @@ ready(function(){
 			}		
 		},false);
 	}
+	
+	
 });
 
-
-//DOM加载完成函数
-function ready(fn){
-	document.addEventListener('DOMContentLoaded',function(){
-		if(fn && Object.prototype.toString.call(fn) === '[object Function]'){
-			fn();
-		}
-	},false)	
-}
-
-//css函数
-function css(){
-	if(arguments.length===2){
-		if(arguments[0].currentStyle){
-			return arguments[0].currentStyle[arguments[1]];
-		}else{
-			return getComputedStyle(arguments[0])[arguments[1]];
-		}
-	}else{
-		arguments[0].style[arguments[1]]=arguments[2];
-	}
-}
-
-//getByClass()
-function getByClass(sClass,parent){
-	parent=parent||document;
-	if(parent.getElementsByClassName){
-		return parent.getElementsByClassName(sClass);
-	}else{
-		var arr=[];
-		var aEls=parent.getElementsByTagName('*');
-		var reg=new RegExp('\\b'+sClass+'\\b');
-		for(var i=0;i<aEls.length;i++){
-			if(reg.test(aEls[i].className)){
-				arr.push(aEls[i]);
-			}
-		}
-		return arr;
-	}
-	return [];
-}
-
-//hasClass(),返回Boolean
-function hasClass(sClass,obj){
-	obj=obj||document;
-	var arr=obj.className.split(' ');
-	for(var i=0;i<arr.length;i++){
-		if(arr[i]===sClass){
-			return true;
-		}
-	}
-	return false;
-}
-
-//添加class
-function addClass(sClass,parent){
-	parent=parent||document;
-	if(parent.className==''){
-		parent.className=sClass;
-	}else{
-		var arrClass = parent.className.split(' ');
-        var _index = arrIndexOf(arrClass,sClass);
-        if( _index==-1 ){
-            parent.className += ' '+sClass;
-        }
-	}
-}
-
-//移出class
-function removeClass(sClass,parent){
-	parent=parent||document;
-	//如果原来有class
-    if(parent.className != ''){
-        var arrClass = parent.className.split(' ');
-        var _index = arrIndexOf(arrClass,sClass);
-        //如果有要移除的class
-        if(_index != -1){
-            arrClass.splice(_index,1);
-            parent.className = arrClass.join(' ');
-        }
-    }
-    //如果没有class
-}
-
-function arrIndexOf(arr,v){
-    for(var i=0;i<arr.length;i++){
-        if( arr[i] == v ){
-            return i;
-        }
-    }
-    return -1;
-}
-
-
-function getPos(obj){
-	var pos={t:0,l:0};
-	
-	while(obj){
-		pos.t+=obj.offsetTop;
-		pos.l+=obj.offsetLeft;
-		obj=obj.offsetParent;
-	}
-	return pos;
-}
-//滚轮事件
-function mScroll(obj,callbackUp,callbackDown){
-	//chrome/ie
-	obj.onmousewheel = function(ev){
-		var ev = ev||event;
-		fn(ev);
-		return false;
-	}
-	//ff
-	obj.addEventListener('DOMMouseScroll',function(ev){
-		var ev = ev||event;	
-		fn(ev);
-	});
-	
-	function fn(ev){
-		var ev = ev||event;		
-		var fx = ev.wheelDelta || ev.detail;
-		var bDown = true;
-
-		if (ev.detail) {
-			//下
-			bDown = fx > 0 ? true : false;
-		} else {
-			//上
-			bDown = fx > 0 ? false : true;
-		}
-		
-		/*
-		 * 如果bDown为true，说明滚轮往下滚动；
-		 * 如果bDown为false，说明滚轮往上滚动。
-		 * 
-		 */
-		if (bDown) {
-			callbackDown&&callbackDown();
-		}else{
-			callbackUp&&callbackUp();
-		}
-		
-		ev.preventDefault();
-	}
-}
 
 
 
