@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>招聘页面</title>
+    <style>
+    *{ margin:0; padding:0;}
+    li{ list-style: none;}
+    a,a:hover{ text-decoration: none;}
+    a:hover{ color:#;}
+    
+    .wrap{ width:920px; margin:20px auto; font-family: "微软雅黑"; overflow: hidden;}
+    .wrap h2{ margin-bottom: 20px; font-size: 30px; line-height: 40px; font-weight: normal;}
+    
+    /* left */
+    .left{ float:left; width: 160px;}
+    .left li{ margin-bottom: 10px;}
+    .left li a{ display: block; font-size:18px; line-height:34px; color:#333; text-align: center;}
+    .left li a:hover{ background:#45aadd;}
+    .left li.active a{ background:#328fbe; color:#fff;}
+    
+    /* right */
+    .right{ float: right; width: 700px;}
+    .right .title{ margin-bottom: 20px; font-size:30px; line-height: 36px;}
+    .right .info{ overflow: hidden;}
+    .right .info dl{ margin-bottom:36px;}
+    .right .info dt{ margin-bottom: 10px;}
+    .right .info dt a{ margin-right:30px; font-size:16px; color:#333; font-weight: bold;}
+    .right .info dt b{ margin-right:50px;}
+    .right .info dt a:hover{ color:orange;}
+    .right .info dd{ font-size: 14px; line-height: 24px; color:#666;}
+    .right .info dd a{ color:#328fbe;}
+    .right .info dd a:hover{ color:#106e9e;}
+    
+    /* page */
+    .page{ width: 100%; height:30px; margin:30px 0; border:1px solid #d6d6d6; background:#e2e2e2; font-size: 0; overflow: hidden; text-align: center;}
+    .page span{ float:left; width:60px; font-size: 20px; line-height: 30px; text-align: center; cursor: pointer;}
+    .page span:last-of-type{ float:right;}
+    .page a{ display: inline-block; width:30px; margin:0 5px; font-size: 20px; line-height: 30px; text-align: center; color:#999;}
+    .page a.active,.page a:hover{ background:#b9b4b4;}
+    
+    </style>
+</head>
+
+<body>
+
+<div class="wrap" id="wrap">
+	<h2>招贤纳士</h2>
+	<ul class="left">
+		<!--<li class="active"><a href="javacript:;">社会招聘</a></li>
+		<li><a href="javacript:;">校园招聘</a></li>-->
+	</ul>
+	<div class="right">
+		<div class="title"><!--社会招聘--></div>
+		<div class="info">
+			<!--<dl>
+				<dt><a href="#">★ 职位需求：测试工程师11【社会招聘】</a><b>需求人数：3名</b><span>2013年7月12日</span></dt>
+				<dd>1.计算机或相关专业本科以上学历；2.从事软件测试工作3年及以上；3.具备良好的沟通能力和快速学习能力；4.精通测试策略和方法、测试用例设计；5.熟悉DB2、AIX等平台的基本操作；6.具备2年以上...<a href="">查看详情</a></dd>
+			</dl>
+			<dl>
+				<dt><a href="#">★ 职位需求：测试工程师11【社会招聘】</a><b>需求人数：3名</b><span>2013年7月12日</span></dt>
+				<dd>1.计算机或相关专业本科以上学历；2.从事软件测试工作3年及以上；3.具备良好的沟通能力和快速学习能力；4.精通测试策略和方法、测试用例设计；5.熟悉DB2、AIX等平台的基本操作；6.具备2年以上...<a href="">查看详情</a></dd>
+			</dl>-->
+		</div>
+		<div class="page">
+			<!--<span class="prev" title="上一页">&lt;</span>
+			<a href="" class="active">1</a>
+			<a href="">2</a>
+			<a href="">3</a>
+			<span class="next" title="下一页">&gt;</span>-->
+		</div>
+	</div>
+</div>
+
+
+<script src="js/data.js"></script>
+<script>
+window.onload = function(){
+	var wrap = document.getElementById("wrap");
+	var left = wrap.querySelector('.left');
+	var info = wrap.querySelector('.info');
+	var title = wrap.querySelector('.title');
+	var page = wrap.querySelector('.page');
+	var rows = 2;	//每页显示的条数
+	
+	var search = window.location.search.substring(1).split('=')[1];
+	search = search || 'sh';
+	var hash = window.location.hash.slice(1).split('=')[1];
+	hash = hash || 1;
+	
+	
+	//左侧
+	for(var i=0;i<aData.list.length;i++){
+		var cl = aData.list[i].lx==search?'active':'';
+		left.innerHTML += '<li class="'+ cl +'"><a href="list.html?s='+ aData.list[i].lx +'">'+ aData.list[i].text +'</a></li>';
+	}
+	
+	
+	//右侧
+	getDate(search,hash);
+	function getDate(search,hash){
+		title.innerHTML = aData[search].title;
+		info.innerHTML = '';
+		for(var i=(hash-1)*rows;i<hash*rows;i++){
+			if(!aData[search].text[i]){
+				return;
+			}
+			info.innerHTML += '<dl><dt><a href="content.html?s='+ search +'#t='+ i +'">★ 职位需求：'+ aData[search].text[i].zw +'</a><b>需求人数：'+ aData[search].text[i].rs +'名</b><span>'+ aData.date(aData[search].text[i].sj,0) +'</span></dt><dd>'+ toStr(aData[search].text[i].info[0].l,90) +' ... <a href="content.html?s='+ search +'#t='+ i +'">查看详情</a></dd></dl>';
+		}
+	
+	}
+	
+	//检测hash值得变化
+	window.onhashchange = function(){
+		hash = window.location.hash.slice(1).split('=')[1];
+
+		getDate(search,hash);
+		
+		var as = page.getElementsByTagName('a');
+		for(var i=0;i<as.length;i++){
+			as[i].className = ''
+		}
+		as[hash-1].className = 'active';
+		
+	}
+	
+	
+	//生成列表
+	addPage(search,hash);
+	function addPage(search,hash){
+		var prevSpan = document.createElement("span");	//上一页
+		var nextSpan = document.createElement("span");	//下一页
+		var total = aData[search].text.length; //总的条数
+		
+		prevSpan.className = 'prev';
+		prevSpan.title = '上一页';
+		prevSpan.innerHTML = '&lt;';
+		page.appendChild(prevSpan);
+		
+		//上一页的事件
+		prevSpan.onclick = function(){
+			
+			hash = window.location.hash.slice(1).split('=')[1];
+			hash = hash-1 || 1;
+			if(hash <= 1){
+				hash = 1;
+			}
+			window.location.href = window.location.origin+window.location.pathname+'?s='+ search +'#p='+ hash;			
+		}
+		
+		//分页
+		for(var i=1;i<=Math.ceil(total/rows);i++){
+			var a = document.createElement("a");
+			a.href = '?s='+ search +'#p='+ i;
+			a.innerHTML = i;
+			a.className = i==hash?'active':'';
+			
+			page.appendChild(a);
+		}
+		
+		nextSpan.className = 'next';
+		nextSpan.title = '下一页';
+		nextSpan.innerHTML = '&gt;';
+		
+		//下一页
+		nextSpan.onclick = function(){
+			hash = parseInt(window.location.hash.slice(1).split('=')[1])||1;
+			hash = hash+1 || Math.ceil(total/rows);
+			if(hash >= Math.ceil(total/rows)){
+				hash = Math.ceil(total/rows);
+			}
+			
+			window.location.href = window.location.origin+window.location.pathname+'?s='+ search +'#p='+ hash;			
+	
+		}
+		
+		page.appendChild(nextSpan);
+		
+		
+	}
+
+	/*
+	 * 数组转字符串
+	 *参数：
+	 * arr:要转换的数组
+	 * len：字符串的长度，不写截取整个
+	 * 
+	 */
+	function toStr(arr,len){
+		var str = arr.join(',')
+		return str.substr(0,len||str.length);
+	}
+		
+}
+	
+	
+</script>
+
+
+
+
+</body>
+</html>
