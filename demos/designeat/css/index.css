@@ -76,7 +76,6 @@ html,body{ width:100%; height:100%; }
 .slide2 .list .txt p:first-child{ padding-bottom:12px; font-size:18px; color:#5e4d5c;opacity:0;}
 .slide2 .list .txt p:last-child{ font-size:14px; color:#fff; opacity:0;}
 
-
 .slide2 .list li.on span{ -webkit-transform:scale(1); transform:scale(1);}
 .slide2 .list li.on p:first-child{
 	-webkit-animation-duration:500ms;
