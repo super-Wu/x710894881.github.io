@@ -1,0 +1,335 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link href="style/weibo.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="znsArea">
+<!--留言-->
+     <div class="takeComment">
+        <textarea name="textarea" class="takeTextField" id="tijiaoText"></textarea>
+        <div class="takeSbmComment">
+            <input type="button" id="btn1" class="inputs" value="" />
+            <span>(可按 Enter 回复)</span>
+        </div>
+    </div>
+<!--已留-->
+    <div class="commentOn">
+        <div class="messList" id="div1" style="min-height:502px">
+        	<!--<div class="reply">
+                <p class="replyContent">卫士，新款卫士将推出总共14种车身式样。其中， XS旅行款车型售价为32295英镑(约33.6万元)。</p>
+                <p class="operation">
+                    <span class="replyTime">2015-09-08 16:37:60</span>
+                    <span class="handle">
+                    	<a href="javascript:;" class="top">0</a>
+                        <a href="javascript:;" class="down_icon">0</a>
+                        <a href="javascript:;" class="cut">删除</a>
+                    </span>
+                </p>
+            </div>-->
+            
+        </div>
+        <div class="page" id="page">
+        	<!--<a href="javascript:;" class="active">1</a>
+        	<a href="javascript:;">2</a>
+        	<a href="javascript:;">3</a>-->
+        </div>
+    </div>
+</div>
+
+
+<script src="ajax_1.0.0.js"></script>
+<script>
+	/*
+	 * 1、当点击按钮的时候，将输入的内容渲染到页面中
+	 * 			请求接口
+	 * 
+	 */
+	var tijiaoText = document.getElementById("tijiaoText");
+	var btn1 = document.getElementById("btn1");
+	var div1 = document.getElementById("div1");
+	var page = document.getElementById("page");
+
+	var hash = window.location.hash.slice(1).split('=')[1];
+	hash = hash || 1;
+	
+	//页面刷新渲染评论
+	createPage(hash);
+	pageList(hash);
+	
+	//点击提交按钮
+	btn1.onclick = function(){
+		add();
+	}
+	
+	//按下回车键发送
+	document.onkeyup = function(ev){
+		var ev=ev||event;
+
+		if(ev.keyCode===13){
+			add();
+		}
+		
+	}
+	
+	//顶踩删除操作
+	div1.onclick=function(ev){
+		var ev=ev||event;
+		var target = ev.target;
+		//顶操作
+		if(target.tagName==='A' && target.className==='top'){
+			if(getCookie('acc','1')){
+				alert('你已经顶过，请不要重复操作~');
+			}else{
+				acc(target.parentNode.getAttribute('index'));
+			}
+			
+		}
+		//踩
+		if(target.tagName==='A' && target.className==='down_icon'){
+			if(getCookie('ref','1')){
+				alert('你已经踩过，请不要重复操作~');
+			}else{
+				ref(target.parentNode.getAttribute('index'));
+			}
+		}
+		//删除
+		if(target.tagName==='A' && target.className==='cut'){
+			dele(target.parentNode.getAttribute('index'));
+		}
+	}
+	
+	//分页添加事件
+	page.onclick=function(ev){
+		var ev=ev||event;
+		var target=ev.target;
+		var href=window.location.href;
+		if(target.tagName==='A'){
+			hash = target.innerHTML;
+			createPage(hash);
+			pageList(hash);
+		}
+	}
+	
+	
+	
+	//添加评论
+	function add(){
+		var val=tijiaoText.value.trim();
+		if(!val){
+			alert('请输入内容');
+			tijiaoText.focus();
+			return;
+		}
+		
+		//添加  //act=add&content=xxx
+		ajax({
+			url:'weibo.php',
+			data:'act=add&content='+encodeURI(val),
+			dataType:'json',
+			succ:function(data){
+				//console.log(data);	//{error: 0, id: 31, time: 1467535345} 
+				if(!data.error){
+					//获取渲染
+					window.location.hash='#page=1';
+					hash = 1;
+					createPage(hash);
+					pageList(hash);
+				}
+				
+			},
+			fail:function(error){
+				console.log(error);
+			}
+		});
+		
+		tijiaoText.value = '';
+	}
+	
+
+	//渲染评论列表
+	function createPage(pageNum){
+		ajax({
+			url:'weibo.php',
+			data:'act=get&page='+pageNum,
+			dataType:'json',
+			succ:function(arr){
+                var html='';
+				//for循环创建标签
+				for(var i=0;i<arr.length;i++){
+				    html+='<div class="reply">'+
+            			'<p class="replyContent">'+ arr[i].content +'</p>'+
+            			'<p class="operation">'+
+                			'<span class="replyTime">'+ Time(arr[i].time) +'</span>'+
+                			'<span class="handle" index="'+ arr[i].id +'">'+
+                				'<a href="javascript:;" class="top">'+ arr[i].acc +'</a>'+
+                    			'<a href="javascript:;" class="down_icon">'+ arr[i].ref +'</a>'+
+                    			'<a href="javascript:;" class="cut">删除</a>'+
+                			'</span>'+
+            			'</p>'+
+        			   '</div>';
+				}
+				
+				div1.innerHTML=html;
+
+			},
+			fail:function(error){
+				console.log(error);
+			}	
+		});
+		
+	}
+	
+
+	//顶
+	function acc(id){
+		ajax({
+			url:'weibo.php',
+			data:'act=acc&id='+id,
+			succ:function(data){
+				if(!data.error){
+					setCookie('acc','1',1);
+					hash = window.location.hash.slice(1).split('=')[1];
+					createPage(hash);
+					pageList(hash);
+				}
+			},
+			fail:function(error){
+				console.log(error);
+			}
+		});
+	}
+	
+	//踩
+	function ref(id){
+		ajax({
+			url:'weibo.php',
+			data:'act=ref&id='+id,
+			succ:function(data){
+				if(!data.error){
+					setCookie('ref','1',1);
+					hash = window.location.hash.slice(1).split('=')[1];
+					createPage(hash);
+					pageList(hash);
+				}
+			},
+			fail:function(error){
+				console.log(error);
+			}
+		});
+	}
+	
+	//删除
+	function dele(id){
+		ajax({
+			url:'weibo.php',
+			data:'act=del&id='+id,
+			succ:function(data){
+				if(!data.error){					
+					createPage(hash);
+					pageList(hash);
+					
+				}
+			},
+			fail:function(error){
+				console.log(error);
+			}
+		});
+	}
+	
+	//分页
+	function pageList(hash){
+		//weibo.php?act=get_page_count
+		ajax({
+			url:'weibo.php',
+			data:'act=get_page_count',
+			succ:function(json){
+				//console.log(json);	//Object {count: 9} 
+				//console.log(hash);
+				var html='';
+				var start = hash-2<=1?1:hash-2;
+				var end = start+4>=json.count?json.count:start+4;
+				
+				if(hash-0+2>=json.count){
+					start = json.count-4;
+				}
+				
+				if(start<=0){
+					start=1;
+				}
+				
+				for(var i=start;i<=end;i++){
+					html +='<a class="'+ (i==hash?'active':'') +'" href="#page='+i+'">'+i+'</a>';
+				}
+				page.innerHTML = html;
+			},
+			fail:function(error){
+				console.log(error);
+			}
+		});
+	}
+	
+	
+	//设置cookie
+	function setCookie(key,value,time){
+		var time=time||0;
+		var oDate=new Date();
+		oDate.setDate(oDate.getDate()+time);
+		document.cookie=key+'='+value+';expires='+oDate;	
+	}
+
+	//获取cookie,如果有则返回true,否则返回false
+	function getCookie(key,value){
+		var str=document.cookie;
+		var onOff= false;
+		if(str){
+			var arr=str.split('; ');
+			
+			for(var i=0;i<arr.length;i++){
+				var keys=arr[i].split('=')[0];
+				var values=arr[i].split('=')[1];
+				if(key){
+					if(keys===key && values===value){
+						onOff = true;
+						return true;
+					}
+				}else{
+					if(values===value){
+						onOff = true;
+						return true;
+					}
+				}
+			}
+		}
+		if(!onOff){
+			return false;
+		}
+	}
+	
+	//处理时间
+	function Time(t){
+		//1467530956 ->
+		var now = new Date(t*1000);
+		var year = now.getFullYear();	//年
+		var mon = now.getMonth()+1; 	//月
+		var date = now.getDate();		//日
+		var hour = now.getHours();		//时
+		var min = now.getMinutes();		//分
+		var sec = now.getSeconds();		//秒
+		
+		return year+'-'+Zero(mon)+'-'+Zero(date)+' '+Zero(hour)+':'+Zero(min)+':'+Zero(sec);
+		
+		function Zero(n){
+			return n<10?'0'+n:''+n;
+		}
+	}
+	
+</script>
+
+
+
+
+</body>
+</html>
