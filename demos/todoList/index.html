@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>Reactjs实现todoList</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+     <!-- 存放数据的M层和用来控制数据的C层 -->
+    <script src="src/app.js"></script>
+     <!-- React的一些js文件 -->
+    <script src="src/react.js"></script>
+    <script src="src/react-dom.js"></script>
+    <!-- 编译JSX语法 -->
+    <script src="src/browser.min.js"></script>  
+</head>
+
+<body>
+    
+<section class="todoapp" id="todoapp">
+    <!-- <div>
+        <header class="header" >
+            <h1>todos</h1>
+            <input class="new-todo" placeholder="请输入内容" value="">
+        </header>
+        <section class="main">
+            <input class="toggle-all" type="checkbox" checked="">
+            <ul class="todo-list">
+                <li class="completed">
+                    <div class="view">
+                        <input class="toggle" type="checkbox" checked="">
+                        <label>多多对对对</label>
+                        <button class="destroy"></button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <footer class="footer">
+            <span class="todo-count">
+                <strong>0</strong>
+                <span>条未选中</span>
+            </span>
+        </footer>
+    </div> -->
+</section>
+
+<script type="text/babel">
+    
+var Todolist = React.createClass({
+    render:function(){
+        console.log(this.props);
+
+        var datas = this.props.data;
+        var main = '';
+        var footer = '';
+        var num = 0;   //采用计数法
+
+        if(datas.length){
+            var arrLi = datas.map(function(elem,index){
+                return <Item key={index} {...elem} change={this.changeHandle} dele={this.deleHandle} />
+            }.bind(this));
+
+            datas.forEach(function(elem){
+                if(elem.isChecked){
+                    num++;
+                }
+            });
+
+            main = <section className="main">
+                    <input className="toggle-all" type="checkbox" checked={num==datas.length?true:false} onChange={this.checkAllHandle} />
+                    <ul className="todo-list">
+                        {arrLi}
+                    </ul>
+                </section>;
+            footer = <footer className="footer">
+                    <span className="todo-count">
+                        <strong>{datas.length-num}</strong>
+                        <span>条未选中</span>
+                    </span>
+                </footer>;
+
+        }
+
+        return (
+            <div>
+                <header className="header" >
+                    <h1>todos</h1>
+                    <input className="new-todo" placeholder="请输入内容" onKeyDown={this.downHandle} />
+                </header>
+                {main}
+                {footer}
+            </div>
+        );
+    },
+    downHandle:function(ev){
+        var target = ev.target;
+        if(ev.keyCode === 13){
+            this.props.app.addItem(target.value);
+            target.value = '';
+        }
+        
+    },
+    changeHandle:function(id){
+        this.props.app.changeItem(id);
+    },
+    checkAllHandle:function(ev){
+        this.props.app.checkAll(ev.target.checked);
+    },
+    deleHandle:function(id){
+        this.props.app.deleItem(id);
+    }
+
+});
+
+
+var Item = React.createClass({
+    render:function(){
+        return (
+            <li className={this.props.isChecked?'completed':''}>
+                <div className="view">
+                    <input className="toggle" type="checkbox" checked={this.props.isChecked} onChange={this.changeHandle} />
+                    <label>{this.props.title}</label>
+                    <button className="destroy" onClick={this.deleHandle}></button>
+                </div>
+            </li>
+        );
+    },
+    changeHandle:function(){
+        this.props.change(this.props.id);
+    },
+    deleHandle:function(){
+        this.props.dele(this.props.id);
+    }
+});
+
+
+render();
+function render(){
+   ReactDOM.render(
+        <Todolist data={data} app={control} />,
+        document.getElementById('todoapp'),
+        function(){
+            //回调函数
+        }
+    ); 
+}
+
+control.render = render;
+
+
+
+</script>
+
+
+</body>
+</html>
