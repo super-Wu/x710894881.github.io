@@ -26,78 +26,68 @@ var listData=[
 
 var worksData=[
 	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息1111111",
-		"link":"http://www.baidu.com"
-	},
-	{
-		"img":"images/th_beauty.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息2222",
+		"img":"images/img1.jpg",
+		"text":"用html+css并且结合html5和css3实现的在线简历，设计参考了网上优秀的简历模板。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_beauty.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息3333",
+		"img":"images/img2.jpg",
+		"text":"原生javascript实现的全屏切换效果，这个作品的亮点就是里面所有的动画都是用css3实现，通过js控制相应的class。",
+		"link":"http://x710894881.github.io/demos/designeat/"
+	},
+	{
+		"img":"images/img3.jpg",
+		"text":"这是模仿QQ音乐主页写的一个静态页面，也算是自己平时布局的一个小练习吧。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息44444",
+		"img":"images/img4.jpg",
+		"text":"这是仿的易通贷首页的一个静态页面，对自己html+css的锻炼。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息5555",
+		"img":"images/img5.jpg",
+		"text":"这是一个主要运用BOM知识写的知识，通过改变地址栏信息hash值等，无刷新的获取数据，然后对数据进行渲染。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_beauty.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息66666",
+		"img":"images/img6.jpg",
+		"text":"这是主要ajax前后端交互的作品，所有的数据都是通过ajax和后端进行交互动态的获取数据，然后对数据进行渲染，呈现给用户。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息777777",
+		"img":"images/img7.jpg",
+		"text":"用原生js实现的迅雷的首页，实现了迅雷首页的呈现的效果。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_beauty.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息88888",
+		"img":"images/img8.jpg",
+		"text":"这是一个Reactjs MVC实现的小例子。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息99999",
+		"img":"images/img9.jpg",
+		"text":"工作期间做的南京奇致整形韩国部的首页。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息101010",
+		"img":"images/img10.jpg",
+		"text":"工作期间做的NIHON KOHDEN的PC站和移动站。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_beauty.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息1111111",
+		"img":"images/img11.jpg",
+		"text":"运用jquery.fullPage.js插件写的一个全屏切换作品。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息12121212",
+		"img":"images/img12.jpg",
+		"text":"工作期间完成的南京奇致整形的移动端首页。",
 		"link":"#"
 	},
 	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息13131313",
+		"img":"images/img13.jpg",
+		"text":"工作期间完成的扬州施尔美移动端首页。",
 		"link":"#"
-	},
-	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息14141414",
-		"link":"#"
-	},
-	{
-		"img":"images/th_antiux.jpg",
-		"text":"这是项目的描述性文字，简单的介绍这个项目干什么的，有什么作用等等一些信息15151515",
-		"link":"#"
-	},
+	}
 ];
