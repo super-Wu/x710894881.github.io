@@ -239,9 +239,17 @@ html,body{ width:100%; height:100%; }
 	from{ transform:translateY(-6px);}
 	to{ transform:translateY(6px);}
 }
+@-webkit-keyframes seesaw{
+	from{ background-position:0 0;}
+	to{ background-position:-7310px 0;}
+}
 @keyframes seesaw{
 	from{ background-position:0 0;}
 	to{ background-position:-7310px 0;}
+}
+@-webkit-keyframes seesaw2{
+	from{ background-position:-7310px 0;}
+	to{ background-position:0 0;}
 }
 @keyframes seesaw2{
 	from{ background-position:-7310px 0;}
