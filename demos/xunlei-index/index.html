@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>迅雷首页</title>
+	<style>
+	*{ margin: 0; padding: 0;}
+	img{ border: none; vertical-align: middle;}
+	a{ text-decoration: none;}
+	li{list-style: none;}
+	
+	html{ width: 100%; height: 100%;}
+	body{ width: 100%; height: 100%; position: relative; overflow: hidden; background: #ccc;}
+	
+	/* logo */
+	.logo{ text-indent: -9999em; font-size: 0; line-height: 0; float: left; margin: 12px 0 0 34px; width: 142px; height: 64px; position: relative; z-index: 99; }
+	.logo a{ display: block; width: 100%; height: 100%; }
+	.logo a img{ display: block; width: 142px; height: 64px; }
+	
+	/* 更多 */
+	.more_nav{ position: absolute; top: 0; bottom: 0; right: -162px; width: 162px; background: rgba(0,0,0,0.5); z-index: 99; }
+	.btn_nav{ position:fixed; top: 20px; right: 12px;  width: 136px; height: 38px; border: 2px solid transparent; text-align: center; line-height: 38px; font-size: 16px; color: #fff; z-index: 99; }
+	.btn_nav i{ display: inline-block; width:26px; height: 19px; margin-right: 5px; background: url(img/ico_01.png) no-repeat center; position: relative; top: 4px;}
+	.btn_nav:hover{ border-color: rgba(255,255,255,0.5); }
+	.more_nav ul{ margin-top: 100px;}
+	.more_nav li{ width: 100%; height: 70px; text-align: center;}
+	.more_nav li a{ font-size: 16px; line-height: 38px; color: #c5c8d0; }
+	.more_nav li a:hover{ color: #fff;}
+	.more_nav span{ position: absolute; top: 112px; left: 20px; width: 12px; height: 12px; border-radius: 50%; background: #4edcff; display: none;}
+	
+	/* 大图 */
+	.wrap{ position: absolute; width: 100%; height: 100%;}
+	.imgWrap{ position: absolute; width: 100%; height: 100%;}
+	.imgWrap li{ position: absolute; width: 100%; height: 100%; opacity: 1;}
+	.imgWrap li.active{ z-index: 9;}  /* 提高层级 */
+	.imgWrap li:nth-of-type(1){ background: url(img/bg_shoulei.jpg) no-repeat; background-size: cover;}
+	.imgWrap li:nth-of-type(2){ background: url(img/bg_xnet.jpg) no-repeat; background-size: cover;}
+	.imgWrap li:nth-of-type(3){ background: url(img/bg_member.jpg) no-repeat; background-size: cover; }
+	.imgWrap li:nth-of-type(4){ background: url(img/bg_xav.jpg) no-repeat; background-size: cover;}
+	.imgWrap li img{ position: absolute; left: 0; right: 0; margin: auto; opacity: 0;}
+	.imgWrap li a{ position: absolute; left: 0; right: 0; top: 200px; margin: auto; width: 96px; height: 26px; color: #fff; font-weight: bold; text-align: center; line-height: 24px; border: 1px solid; font-size: 12px;font-family: "微软雅黑"; opacity: 0;}
+	.imgWrap li:nth-of-type(1) img{ top: 75px;}
+	.imgWrap li:nth-of-type(1) a{ top: 230px; color: #000;}
+	.imgWrap li:nth-of-type(2) img{ top: 145px;}
+	.imgWrap li:nth-of-type(2) a{ top: 490px;}
+	.imgWrap li:nth-of-type(3) img{ top: 130px;}
+	.imgWrap li:nth-of-type(3) a{ top: 255px;}
+	.imgWrap li:nth-of-type(4) img{ top: 85px; width: 310px; height: 40px;}
+	.imgWrap li:nth-of-type(4) a{ top: 190px;}
+	
+	/* 底部按钮 */
+	.btnWrap{ position: absolute; left: 0; right: 0; bottom: 40px; width: 260px; margin: auto; padding-bottom: 10px; border-bottom: 3px solid rgba(255,255,255,0.5); z-index: 12; text-align: center;}
+	.btnWrap ul{ font-size: 0; line-height: 0;}
+	.btnWrap li{ display: inline-block; width: 45px; height: 44px; margin: 0 10px; background: url(img/ic_spr.png) no-repeat; cursor: pointer; }
+	.btnWrap li:nth-of-type(1){ background-position:2px 0;}
+	.btnWrap li:nth-of-type(2){ background-position:-66px 0;}
+	.btnWrap li:nth-of-type(3){ background-position: -137px 0;}
+	.btnWrap li:nth-of-type(4){ background-position: -255px 0;}
+	.btnWrap li:nth-of-type(1):hover,.btnWrap li:nth-of-type(1).active{ background-position: 2px -69px;}
+	.btnWrap li:nth-of-type(2):hover,.btnWrap li:nth-of-type(2).active{ background-position: -66px -69px;}
+	.btnWrap li:nth-of-type(3):hover,.btnWrap li:nth-of-type(3).active{ background-position: -137px -69px;}
+	.btnWrap li:nth-of-type(4):hover,.btnWrap li:nth-of-type(4).active{ background-position: -255px -69px;}
+	
+	.btnWrap span{ position: absolute; left: 0; bottom:-3px; width:65px; height: 3px; background: #fff;}
+	
+	
+	</style>
+</head>
+
+<body>
+
+
+<div class="logo">
+	<a href="" title="迅雷网络">
+		<img src="img/n_logo.png" alt="" />
+	</a>
+</div>
+
+<div class="wrap">
+	<div class="imgWrap" id="imgWrap">
+		<ul>
+			<li>
+				<img src="img/txt_1.png" alt="" />
+				<a href="javascript:;">手机迅雷</a>
+			</li>
+			<li>
+				<img src="img/txt_2.png" alt="" />
+				<a href="javascript:;">迅雷7.9</a>
+			</li>
+			<li>
+				<img src="img/txt_3.png" alt="" />
+				<a href="javascript:;">迅雷会员</a>
+			</li>
+			<li>
+				<img src="img/txt_5.png" alt="" />
+				<a href="javascript:;">迅雷影音</a>
+			</li>
+		</ul>
+	</div>
+	<div class="btnWrap" id="btnWrap">
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<span></span>
+	</div>
+	
+</div>
+
+
+<!-- 更多 -->
+<div class="more_nav">
+	<a href="javascript:;" class="btn_nav" id="btnNav"><i></i>更多</a>
+	<span id="dot"></span>
+	<ul id="navList">
+		<li><a href="">星域CDN</a></li>
+		<li><a href="">新闻动态</a></li>
+		<li><a href="">人力资源</a></li>
+		<li><a href="">投资关系</a></li>
+		<li><a href="">关于迅雷</a></li>
+		<li><a href="">联系我们</a></li>
+	</ul>
+</div>
+
+<script src="mTween.js"></script>
+<script>
+	//处理右侧导航
+	var moreNav = document.querySelector('.more_nav');		//获取右侧
+	var btnNav = document.getElementById("btnNav");			//“更多”按钮
+	var dot =document.getElementById("dot");				//获取右侧小圆点
+	var navList = document.getElementById("navList");		//获取右侧导航
+	var navLis = navList.getElementsByTagName('li');		//获取右侧导航li
+	var dotTop = parseFloat(getComputedStyle(dot).top);		//圆点的起始top值
+	var moreNavR = parseFloat(getComputedStyle(moreNav).right);	//右侧的right值
+	
+	//右侧鼠标进入
+	moreNav.onmouseover = function(){
+		//小圆点移动进入
+		mTween(moreNav,{"right":0},200,'linear');
+	}
+	//右侧鼠标离开
+	moreNav.onmouseout = function(){
+		//右侧移动出去，小圆点消失并回到初始高度
+		mTween(moreNav,{"right":moreNavR},200,'linear',function(){
+			dot.style.top = dotTop + 'px';
+			dot.style.display = 'none';
+		});
+	}
+	//处理内部ul时小绿点
+	navList.onmouseover = function(){
+		dot.style.display = 'block';
+	}
+	navList.onmouseout = function(){
+		dot.style.display = 'none';
+	}
+	//处理li的事件
+	for(var i=0;i<navLis.length;i++){
+		navLis[i].index = i;
+		navLis[i].onmouseover = function(){
+			//根据移动的li给小圆点
+			mTween(dot,{top:dotTop+this.index*70},200,'linear');
+		}
+	}
+	
+	/****************************************************************************************/
+	//处理左侧主要部分
+	var imgWrap = document.getElementById("imgWrap");		//获取大图li的父级
+	var btnWrap = document.getElementById("btnWrap");		//获取按钮li的父级
+	var imgLis = imgWrap.getElementsByTagName('li');		//获取大图li
+	var btnLis = btnWrap.getElementsByTagName('li');		//获取按钮li
+	var btnLisW = parseFloat(getComputedStyle(btnLis[0]).width)+20;	//获取按钮li的宽度并且加上margin值
+	var btnSpan = btnWrap.getElementsByTagName('span')[0];			//获取按钮下方的滑块
+	var btnSpanL = parseFloat(getComputedStyle(btnSpan).left);		//获取滑块的初始left值
+	var liImgs = imgWrap.getElementsByTagName('img');	//获取imgWrap下文字的所有img
+	var liAs = imgWrap.getElementsByTagName('a');
+	var n =0;			//
+	
+	//把每一个img的top值存起来
+	for(var i=0;i<liImgs.length;i++){
+		liImgs[i].top = parseFloat(getComputedStyle(liImgs[i]).top);
+		//console.log(liImgs[i].top);
+	}
+	//初始化，第一个按钮li加class
+	btnLis[n].className = 'active';
+	imgLis[n].className = 'active';
+	move(imgLis[n]);	//加载完文字的移动
+	
+	//开始定时器，3s自定执行一次
+	var timer = setInterval(function(){
+		n++;
+		n%=btnLis.length;
+		fn();
+	},3000);
+	
+	//给每一个btnLis添加鼠标移入事件
+	for(var i=0;i<btnLis.length;i++){
+		btnLis[i].index = i;
+		btnLis[i].onmouseover = function(){
+			clearInterval(timer);
+			//当判断成立的时候，说明移入的是同一个li，退出函数
+			if(n==this.index){		//也可以用this.className做判断
+				return;
+			}
+			
+			n = this.index;
+			
+			fn();
+
+		}
+		//鼠标移开重新开启定时器
+		btnLis[i].onmouseout = function(){
+			timer = setInterval(function(){
+				n++;
+				n%=btnLis.length;
+				fn();
+			},3000);
+		}
+	
+	}
+	
+	//执行函数
+	function fn(){
+		//回到初始值
+		for(var i=0;i<btnLis.length;i++){
+			btnLis[i].className = '';
+			
+			//清除小图和链接上面的定时器
+			clearInterval(liImgs[i].timer);
+			clearInterval(liAs[i].timer);
+			
+			//imgLis[i].style.opacity = 0;
+			mTween(imgLis[i],{"opacity":0},500,'linear');
+
+			imgLis[i].className = '';
+			liImgs[i].style.opacity = 0;
+			liImgs[i].style.top = liImgs[i].top + 'px';
+			imgLis[i].getElementsByTagName('a')[0].style.opacity = 0;
+		}
+		
+		//当前添加class
+		btnLis[n].className = 'active';
+		//大图li添加class,用于提高层级
+		imgLis[n].className = 'active';
+		
+		//按钮滑块的位置
+		mTween(btnSpan,{"left":btnSpanL+n*btnLisW},200,'linear');
+		
+		mTween(imgLis[n],{"opacity":1},500,'linear',function(){
+			//执行当前li中的文字img动画
+			move(imgLis[n]);
+		});
+		
+		
+	}
+
+	
+	//图片和链接的运动
+	function move(imgLi){
+		
+		var img = imgLi.getElementsByTagName('img')[0];
+		var a = imgLi.getElementsByTagName('a')[0];
+		//当前下的文字图片的动画和链接的动画
+		mTween(img,{"top":img.top+20,"opacity":1},600,'linear',function(){
+			mTween(a,{"opacity":1},400,'linear');
+		});
+
+	}
+
+</script>
+
+
+
+	
+	
+</body>
+</html>
