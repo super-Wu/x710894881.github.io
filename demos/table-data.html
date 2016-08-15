@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>表格的数据操作</title>
+    <style>
+        table{
+            border-collapse: collapse;;
+            border-spacing: 0;
+            margin-top: 10px;
+        }
+        table tbody tr:nth-of-type(odd){
+            background-color: rgba(204,204,204,.5);
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+    <script>
+        //在页面加载完成的时候，把下面这个数据动态添加到表格中
+        var data = [
+            {
+
+                'id' : 1,
+                'username' : '张三',
+                'age' : 36,
+                'sex' : '男',
+                'check':false
+            },
+            {
+                'id' : 2,
+                'username' : '李四',
+                'age' : 16,
+                'sex' : '女',
+                'check':false
+            },
+            {
+                'id' : 3,
+                'username' : '开开',
+                'age' : 24,
+                'sex' : '男',
+                'check':true
+            },
+            {
+                'id' : 4,
+                'username' : 'David',
+                'age' : 46,
+                'sex' : '男',
+                'check':false
+            },
+            {
+                'id' : 5,
+                'username' : '王小丫',
+                'age' : 29,
+                'sex' : '女',
+                'check':false
+            }
+        ];
+        /*
+            1、根据数据生成表格。
+            2、数据的添加
+            3、全选
+            4、删除
+            5、排序（按年龄从大到小-从小到大）
+            6、批量删除（被选中的删除）
+        */
+        
+    </script>
+</head>
+
+<body>
+
+<form action="" name="form1" id="form1">
+    <p>
+        姓名:<input type="text" name="username" />
+    </p>
+    <p>
+        年龄:<input type="text" name="age" />
+    </p>
+    <p> 
+        性别: <select name="sex" id="sex">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+    </p>
+    <p>
+        <input type="button" value="添加" name="add" />
+    </p>
+</form>
+    <input type="button" value="批量删除" id="delAll"> 
+    <input type="button" value="年龄从小到大" class="btn"> 
+    <table id="tab1" width="100%" border="1">
+        <thead>
+        <tr>
+            <th>
+                <input id="checkAll" type="checkbox" /> 全选
+            </th>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+           <!--  <tr>
+                <td>
+                    <input type="checkbox"/>
+                </td>
+                <td>1</td>
+                <td>LEO</td>
+                <td>36</td>
+                <td>男</td>
+                <td>
+                    <a href="javascript:;">删除</a>
+                </td>
+            </tr> -->
+        </tbody>
+    </table>
+
+<script type="text/javascript">
+
+//获取元素
+var form1 = $('form1');
+var username = form1.username;
+var age = form1.age;
+var sex = form1.sex;
+var add = form1.add;
+var delAll = $('delAll');
+var btn = document.getElementsByClassName('btn')[0];
+var tab1 = $('tab1');
+var tBody = tab1.tBodies[0];
+var checkAll = $('checkAll');
+var id = 5; //记录初始的id，可以自动生成，new Date().getTime()+Math.random()
+var onOff = false;  //初始判断条件，用来判断是否点击了排序按钮
+btn.onOff = true;   //自定义属性来判断排序方式
+
+//初始化渲染页面
+render();
+
+
+//添加数据
+add.onclick = function (){
+    //姓名和年龄不能为空
+    if(username.value != '' && age.value != ''){
+        addData(username.value,age.value,sex.value);
+        username.value = age.value = ''; 
+    }else{
+        //姓名和年龄有一个为空时，提示信息不完整
+        alert('请填写完整信息！');
+    }
+}
+
+//删除操作
+tBody.onclick = function(ev){
+    var ev = ev||event;
+    //删除，根据事件源判断
+    if(ev.target.nodeName.toLowerCase() == 'a' ){
+        //删除某一条数据，需要知道数据的id
+        deleItem(ev.target.getAttribute('data-id'));
+    }
+    //选择，根据事件源判断
+    if(ev.target.nodeName.toLowerCase() == 'input'){
+        //改变某一条的状态，接收一个id
+        ckeckHandle(ev.target.getAttribute('data-id'));
+    }
+}
+
+//全选
+checkAll.onclick = function(){
+    //全选操作，传入当前按钮的状态
+    checkAllHandle(this.checked);
+}
+
+//批量删除
+delAll.onclick = function(){
+    deleAllHandle();
+}
+
+//排序
+btn.onclick = function(){
+    onOff = true;
+    
+    this.value = this.onOff?'年龄从小到大':'年龄从大到小';
+    this.onOff = !this.onOff;
+
+    sortHandle();
+}
+
+
+//每次处理完数据，重新渲染页面
+//添加数据
+function addData(username,age,sex){
+    data.push({
+        "id":++id,
+        "username":username,
+        "age":age,
+        "sex":sex,
+        "check":false
+    });
+    //根据onOff判断是否点击了排序按钮，如果点击了，那么新添加的数据也要排序
+    if(onOff){
+        sortHandle();
+    }else{
+       render(); 
+    }
+    
+}
+
+//删除一条数据
+function deleItem(id){
+    //循环数据，进行判断
+    data.forEach(function(elem,index){
+        if(elem.id == id){
+            data.splice(index,1);
+        }
+    });
+    render();
+}
+
+//批量删除
+function deleAllHandle(){
+    for(var i=0;i<data.length;i++){
+        if(data[i].check){
+            data.splice(i,1);   //删除一条数据
+            i--;      //注意这里要记得-1
+        }
+    }
+    render();
+}
+
+//单选
+function ckeckHandle(id){
+    data.forEach(function(elem,index){
+        if(elem.id == id){
+            elem.check = !elem.check;
+        }
+    });
+    render();
+}
+
+//全选
+function checkAllHandle(bol){
+    data.forEach(function(elem){
+        elem.check = bol;
+    });
+    render();
+}
+
+//排序
+function sortHandle(){
+    data.sort(function(a,b){
+        return btn.onOff?(a.age - b.age):(b.age - a.age);
+    });
+    render();
+}
+
+//渲染页面
+function render(){
+    var html = '';
+    var num = 0;
+
+    //数据长度>0，采用计数法判断是否全选
+    if(data.length){
+        for(var i=0;i<data.length;i++){
+
+            if(data[i].check){
+                num++;
+            }
+
+            checkAll.disabled = false;
+            checkAll.checked = (num==data.length)?true:false;
+
+            var check = data[i].check?'checked':'';
+            //将id绑定到input和删除上面，方便获取
+            html += '<tr>'+
+                        '<td>'+
+                            '<input data-id="'+ data[i].id +'" type="checkbox" '+ check +' >'+
+                        '</td>'+
+                        '<td>'+ data[i].id +'</td>'+
+                        '<td>'+ data[i].username +'</td>'+
+                        '<td>'+ data[i].age +'</td>'+
+                        '<td>'+ data[i].sex +'</td>'+
+                        '<td>'+
+                            '<a href="javascript:;" data-id="'+ data[i].id +'">删除</a>'+
+                        '</td>'+
+                    '</tr>';
+        }
+
+    }else{
+        //数据长度为0，说明没有数据，那么全选按钮为不选择状态和不可选状态
+        checkAll.checked = false;
+        checkAll.disabled = true;
+    }
+    //重新添加到页面中
+    tBody.innerHTML = html;
+}
+
+
+//获取元素
+function $(id){
+    return document.getElementById(id);
+}
+
+</script>
+
+
+</body>
+</html>
