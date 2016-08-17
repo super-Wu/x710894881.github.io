@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>职位详细页</title>
+    <style>
+    *{ margin:0; padding:0;}
+    li{ list-style: none;}
+    a,a:hover{ text-decoration: none;}
+    a:hover{ color:#;}
+    
+    .wrap{ width:920px; margin:20px auto; font-family: "微软雅黑"; overflow: hidden;}
+    .wrap h2{ margin-bottom: 20px; font-size: 30px; line-height: 40px; font-weight: normal;}
+    
+    /* left */
+    .left{ float:left; width: 160px;}
+    .left li{ margin-bottom: 10px;}
+    .left li a{ display: block; font-size:18px; line-height:34px; color:#333; text-align: center;}
+    .left li a:hover{ background:#45aadd;}
+    .left li.active a{ background:#328fbe; color:#fff;}
+    
+    /* right */
+    .right{ float: right; width: 700px;}
+    .right .title{ margin-bottom: 20px; font-size:30px; line-height: 36px;}
+    .right>h3{ padding:10px 0 35px; font-size:24px; color:#0000FF; font-weight: normal;}
+    .right .info{ margin-bottom: 30px; overflow: hidden;}
+    .right .info span{ font-size: 14px; line-height: 30px; color:#666;}
+    .right .info span:nth-of-type(odd){ float:left; width:50%;}
+    .right .info span:nth-of-type(even){ float:right; width:50%;}
+    .right .require{ margin-bottom:50px; font-size:14px; line-height: 28px; color:#000;}
+    
+    </style>
+</head>
+
+<body>
+
+<div class="wrap" id="wrap">
+	<h2>招贤纳士</h2>
+	<ul class="left">
+		<!--<li class="active"><a href="javacript:;">社会招聘</a></li>
+		<li><a href="javacript:;">校园招聘</a></li>-->
+	</ul>
+	<div class="right">
+		<div class="title"><!--社会招聘--></div>
+		<h3><!--测试工程师--></h3>
+		<div class="info">
+			<!--<span>招聘公司：北京妙味课堂培训机构</span>
+			<span>公司性质：股份制公司</span>
+			<span>职位性质：全职</span>
+			<span>工作地点：上海</span>
+			<span>工作经验：3年以上</span>
+			<span>学历要求：本科及以上</span>
+			<span>招聘人数：2人</span>
+			<span>薪资待遇：面议</span>
+			<span>发布日期：2013-7-30</span>
+			<span>招聘类型：社会招聘</span>-->
+		</div>
+		
+		<dl class="require">
+			<!--<dt>岗位要求：</dt>
+			<dd>1.计算机或相关专业本科以上学历；</dd>
+			<dd>2.从事软件测试工作3年及以上；</dd>
+			<dd>3.具备良好的沟通能力和快速学习能力；</dd>
+			<dd>4.精通测试策略和方法、测试用例设计；</dd>
+			<dd>5.熟悉DB2、AIX等平台的基本操作；</dd>
+			<dd>6.具备2年以上金融IT行业经验，特别是有金融行业相关业务的测试或者开发工作经验者优先。</dd>-->
+		</dl>
+		
+		<!--<p>有意者请投递简历至 liuyanjuan@fulan.com.cn</p>-->
+		
+		
+	</div>
+</div>
+
+<script src="js/data.js"></script>	
+<script>
+window.onload = function(){
+	var wrap = document.getElementById("wrap");
+	var left = wrap.querySelector('.left');
+	var right = wrap.querySelector('.right');
+	var title = wrap.querySelector('.title');
+	var h3 = right.querySelector('.right>h3');
+	var info = wrap.querySelector('.info');
+	var require = wrap.querySelector('.require');
+	
+	var search = window.location.search.substring(1).split('=')[1];
+	search = search || 'sh';
+	var hash = window.location.hash.slice(1).split('=')[1];
+	hash = hash || 0;
+	
+	
+	//左侧
+	for(var i=0;i<aData.list.length;i++){
+		var cl = aData.list[i].lx==search?'active':'';
+		left.innerHTML += '<li class="'+ cl +'"><a href="list.html?s='+ aData.list[i].lx +'">'+ aData.list[i].text +'</a></li>';
+	}
+	
+	//右侧
+	getInfo(search,hash);
+	
+	function getInfo(search,hash){
+		var textObj = aData[search].text[hash];
+		title.innerHTML = aData[search].title;
+		h3.innerHTML = textObj.zw;
+		
+		info.innerHTML = '<span>招聘公司：'+ textObj.gs +'</span><span>公司性质：'+ textObj.xz +'</span><span>职位性质：'+ textObj.gz +'</span><span>工作地点：'+ textObj.dd +'</span><span>工作经验：'+ textObj.jy +'</span><span>学历要求：'+ textObj.xl +'</span><span>招聘人数：'+ textObj.rs +'人</span><span>薪资待遇：'+ textObj.dy +'</span><span>发布日期：'+ aData.date(textObj.sj,1) +'</span><span>招聘类型：'+ textObj.lx +'</span>';
+		
+		var dt = document.createElement("dt");
+		dt.innerHTML = textObj.info[0].t;
+		require.appendChild(dt);
+		
+		for(var i=0;i<textObj.info[0].l.length;i++){
+			var dd = document.createElement("dd");
+			dd.innerHTML = textObj.info[0].l[i];
+			require.appendChild(dd);
+		}
+		
+		var p = document.createElement("p");
+		p.innerHTML = '有意者请投递简历至 '+ aData.email;
+		right.appendChild(p);
+		
+	}
+	
+	
+	
+	
+	
+}
+</script>
+
+
+
+
+
+</body>
+</html>
