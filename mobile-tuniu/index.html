@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<link rel="stylesheet" type="text/css" href="css.css" />
+<script>
+var i=0;
+i=window.devicePixelRatio>1?1/window.devicePixelRatio:1;
+document.write('<meta name="viewport" content="width=device-width,initial-scale='+i+',minimum-scale='+i+',maximum-scale='+i+',user-scalable=no" />');
+</script>
+<script>
+var oHtml=document.getElementsByTagName("html")[0];
+var iWidth=oHtml.getBoundingClientRect().width;
+oHtml.style.fontSize=iWidth/18+"px";
+</script>
+</head>
+<body>
+     <!-- 头部 -->
+	<header id="header">
+		<div id="search" class="clear">
+			<a href="#">上海
+            	<span class="ico"></span>
+            	<span class="ico"></span>
+			</a>
+			<input type="text" placeholder="泰国" />
+		    <strong class="ico"></strong>			
+		</div>
+		<span class="ico"></span>
+		<a id="headerMore" class="ico" href="#"></a>
+	</header>
+    <section id="content">
+    	<!-- 广告 -->
+    	<section id="banner">
+    		<a href="#">
+    			<img src="img/banner.png" >
+    		</a>
+    	</section>
+    	<!-- 主导航 -->
+        <nav id="mianNav" class="clear">
+        	<a class="ico" href="#"></a>
+        	<a class="ico" href="#"></a>
+        	<a class="ico" href="#"></a>
+        </nav>
+        <!-- 子导航 -->
+        <ul id="subNav" class="clear">
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>跟团游</strong>
+        		</a>
+        	</li>
+        </ul>
+        <!-- 签到 -->
+        <p id="signIn">
+        	<a href="#" class="clear">
+        		<span class="ico"></span>
+        		<strong>智商逆袭 周董签名专辑等你领</strong>
+        	</a>
+        	<a class="ico" href="#"></a>
+        </p>
+        <!-- 小子导航 -->
+        <ul id="smallSubNav" class="clear">
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>定制游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>定制游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>定制游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>定制游</strong>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="#">
+        			<span class="ico"></span>
+        			<strong>定制游</strong>
+        		</a>
+        	</li>
+        </ul>
+        <!-- 手机专享 -->
+        <section class="phone clear">
+            <div class="phoneLeft">
+                <img src="img/cellphone1.png" />
+                <strong>三亚半自助5日游</strong>
+                <span>￥1800起</span>
+                <span class="ico"></span>
+                <span class="ico"></span>
+            </div>
+            <div class="phoneRight">
+                <div class="phoneRightT">
+                    <strong>当季热玩</strong>
+                    <span>错峰游 正当时</span>
+                    <img src="img/cellphone4.png">
+                </div>
+                <div class="phoneRightB clear">
+                    <div class="phoneRightBL">
+                        <strong>特卖精选</strong>
+                        <span>超值抢购</span>
+                        <img src="img/cellphone2.png">
+                    </div>
+                    <div class="phoneRightBL">
+                        <strong>银行特惠</strong>
+                        <span>发现精品</span>
+                        <img src="img/cellphone3.png">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 灰色背景 -->
+        <section class="bg1"></section>
+        <!-- 热门推荐 -->
+        <section id="hot">
+            <p>热门推荐</p>
+            <ul class="clear">
+                <li>
+                    <strong>亲子游</strong>
+                    <span>大小兼顾</span>
+                    <img src="img/hot1.png">
+                </li>
+                <li>
+                    <strong>亲子游</strong>
+                    <span>大小兼顾</span>
+                    <img src="img/hot2.png">
+                </li>
+                <li>
+                    <strong>亲子游</strong>
+                    <span>大小兼顾</span>
+                    <img src="img/hot3.png">
+                </li>
+                <li>
+                    <strong>亲子游</strong>
+                    <span>大小兼顾</span>
+                    <img src="img/hot4.png">
+                </li>
+                <li>
+                    <strong>亲子游</strong>
+                    <span>大小兼顾</span>
+                    <img src="img/hot5.png">
+                </li>
+                <li>
+                    <strong>亲子游</strong>
+                    <span>大小兼顾</span>
+                    <img src="img/hot6.png">
+                </li>
+                <li>
+                    <strong>亲子游</strong>
+                    <span>大小兼顾</span>
+                    <img src="img/hot7.png">
+                </li>
+                <li>
+                    <strong>亲子游</strong>
+                    <span>大小兼顾</span>
+                    <img src="img/hot8.png">
+                </li>
+            </ul>
+        </section>
+        <section class="bg2">
+            <p>发现更多精彩</p>
+            <span class="ico"></span>
+        </section>
+        <section id="more">
+            <ul id="moreList1" class="clear">
+                <li>猜你喜欢</li>
+                <li>出境游</li>
+                <li>国内游</li>
+                <li>周边游</li>
+            </ul>
+            <ul id="moreList2" class="clear">
+                <li><span>全部</span></li>
+                <li><span>马尔代夫</span></li>
+                <li><span>欧洲</span></li>
+                <li><span>马尔代夫</span></li>
+                <li><span>欧洲</span></li>
+                <li><span>马尔代夫</span></li>
+                <li><span>欧洲</span></li>
+                <li><span>马尔代夫</span></li>
+            </ul>
+        </section>
+        <!-- 灰色背景 -->
+        <section class="bg1"></section>
+        <!-- 下部列表 -->
+        <ul id="bigList">
+            <li>
+                <img src="img/list.png" />
+                <p>               
+                    <strong>跟团游 | 上海出发<span class="ico"></span></strong>
+                </p>
+                <h2>&lt;大阪-箱根-富士山-东京6日游&gt;樱花季限定…</h2> 
+                <h3>途牛整包团 浪漫出海游 2晚独栋别墅 海边国五 特色脏鸭餐</h3>
+                <h4>
+                    <p class="money clear"><span>￥</span><strong>7989</strong><span>起</span></p>
+                    <span class="moneyB">立省1200</span>
+                </h4>     
+            </li>
+            <li>
+                <section class="bg1"></section> 
+            </li>
+            <li>
+                <img src="img/list.png" />
+                <p>               
+                    <strong>跟团游 | 上海出发<span class="ico"></span></strong>
+                </p>
+                <h2>&lt;大阪-箱根-富士山-东京6日游&gt;樱花季限定…</h2> 
+                <h3>途牛整包团 浪漫出海游 2晚独栋别墅 海边国五 特色脏鸭餐</h3>
+                <h4>
+                    <p class="money clear"><span>￥</span><strong>7989</strong><span>起</span></p>
+                    <span class="moneyB">立省1200</span>
+                </h4>     
+            </li>
+            <li>
+                <section class="bg1"></section> 
+            </li>
+            <li>
+                <img src="img/list.png" />
+                <p>               
+                    <strong>跟团游 | 上海出发<span class="ico"></span></strong>
+                </p>
+                <h2>&lt;大阪-箱根-富士山-东京6日游&gt;樱花季限定…</h2> 
+                <h3>途牛整包团 浪漫出海游 2晚独栋别墅 海边国五 特色脏鸭餐</h3>
+                <h4>
+                    <p class="money clear"><span>￥</span><strong>7989</strong><span>起</span></p>
+                    <span class="moneyB">立省1200</span>
+                </h4>     
+            </li>
+            <li>
+                <section class="bg1"></section> 
+            </li>
+            <li>
+                <img src="img/list.png" />
+                <p>               
+                    <strong>跟团游 | 上海出发<span class="ico"></span></strong>
+                </p>
+                <h2>&lt;大阪-箱根-富士山-东京6日游&gt;樱花季限定…</h2> 
+                <h3>途牛整包团 浪漫出海游 2晚独栋别墅 海边国五 特色脏鸭餐</h3>
+                <h4>
+                    <p class="money clear"><span>￥</span><strong>7989</strong><span>起</span></p>
+                    <span class="moneyB">立省1200</span>
+                </h4>     
+            </li>
+            <li>
+                <section class="bg1"></section> 
+            </li>
+            <li>
+                <img src="img/list.png" />
+                <p>               
+                    <strong>跟团游 | 上海出发<span class="ico"></span></strong>
+                </p>
+                <h2>&lt;大阪-箱根-富士山-东京6日游&gt;樱花季限定…</h2> 
+                <h3>途牛整包团 浪漫出海游 2晚独栋别墅 海边国五 特色脏鸭餐</h3>
+                <h4>
+                    <p class="money clear"><span>￥</span><strong>7989</strong><span>起</span></p>
+                    <span class="moneyB">立省1200</span>
+                </h4>     
+            </li>
+            <li>
+                <section class="bg1"></section> 
+            </li>
+            <li>
+                <img src="img/list.png" />
+                <p>               
+                    <strong>跟团游 | 上海出发<span class="ico"></span></strong>
+                </p>
+                <h2>&lt;大阪-箱根-富士山-东京6日游&gt;樱花季限定…</h2> 
+                <h3>途牛整包团 浪漫出海游 2晚独栋别墅 海边国五 特色脏鸭餐</h3>
+                <h4>
+                    <p class="money clear"><span>￥</span><strong>7989</strong><span>起</span></p>
+                    <span class="moneyB">立省1200</span>
+                </h4>     
+            </li>
+            <li>
+                <section class="bg1"></section> 
+            </li>
+        </ul>
+        <ul id="footer" class="clear"> 
+            <li>
+                <span class="ico"></span>
+                <span>登录</span>
+            </li>
+            <li>
+                <span class="ico"></span>
+                <span>注册</span>
+            </li>
+            <li>
+                <span class="ico"></span>
+                <span>APP</span>
+            </li>
+            <li>
+                <span class="ico"></span>
+                <span>电脑板</span>
+            </li>
+            <li>
+                <span class="ico"></span>
+                <span>24小时服务</span>
+            </li>
+        </ul>
+        <p id="last">途牛旅游网ICP证：苏B2-20130006</p>
+    </section>
+</body>
+</html>
