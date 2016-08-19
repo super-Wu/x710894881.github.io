@@ -11,7 +11,7 @@
 <section class="demo">
 
         <dl class="list nigiri">
-             <dd><a href='#' target='_blank'>待添加</a></dd>
+             <dd><a href='http://www.baidu.com' target='_blank'>待添加</a></dd>
    			 <dd><a href='#' target='_blank'>待添加</a></dd>
    			 <dd><a href='#' target='_blank'>待添加</a></dd>
   			 <dd><a href='#' target='_blank'>待添加</a></dd>
@@ -58,58 +58,50 @@
         <a href="#" class="toggle">展开/折叠</a>
 
     </section>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/makisu.js"></script>
-    <script>
+<script src="js/jquery.min.js"></script>
+<script src="js/makisu.js"></script>
+<script>
 
-        if ( $.fn.makisu.enabled ) {
 
-            var $sashimi = $( '.sashimi' );
-            var $nigiri = $( '.nigiri' );
-            var $maki = $( '.maki' );
+    if ( $.fn.makisu.enabled ) {
+        var $sashimi = $( '.sashimi' );
+        var $nigiri = $( '.nigiri' );
+        var $maki = $( '.maki' );
 
-            // Create Makisus
+        // Create Makisus
+        $nigiri.makisu({
+            selector: 'dd',
+            overlap: 0.85,
+            speed: 1.7
+        });
 
-            $nigiri.makisu({
-                selector: 'dd',
-                overlap: 0.85,
-                speed: 1.7
-            });
+        $maki.makisu({
+            selector: 'dd',
+            overlap: 0.6,
+            speed: 0.85
+        });
 
-            $maki.makisu({
-                selector: 'dd',
-                overlap: 0.6,
-                speed: 0.85
-            });
+        $sashimi.makisu({
+            selector: 'dd',
+            overlap: 0.2,
+            speed: 0.5
+        });
 
-            $sashimi.makisu({
-                selector: 'dd',
-                overlap: 0.2,
-                speed: 0.5
-            });
+        // Open all
+        $( '.list' ).makisu( 'open' );
 
-            // Open all
-            
-            $( '.list' ).makisu( 'open' );
+        // Toggle on click
+        $( '.toggle' ).on( 'click', function() {
+            $( '.list' ).makisu( 'toggle');
+        
+            event.preventDefault();
+        });
 
-            // Toggle on click
+    } else {
+        $( '.warning' ).show();
+    }
 
-            $( '.toggle' ).on( 'click', function() {
-                $( '.list' ).makisu( 'toggle' );
-            });
-
-            // Disable all links
-
-            $( '.demo a' ).click( function( event ) {
-                event.preventDefault();
-            });
-
-        } else {
-
-            $( '.warning' ).show();
-        }
-
-    </script>
+</script>
 
 <script type="text/javascript">
 var oldTitle = document.title;
