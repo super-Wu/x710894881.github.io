@@ -1,0 +1,56 @@
+@charset "UTF-8";
+ /*reset*/
+body,
+div, p,
+ol, ul,
+h1, h2, h3, h4, h5, h6,
+th, td, dl, dd,
+form, iframe, input, textarea, select, label,
+article, aside, footer, header, menu, nav, section, time, audio, video {
+  margin: 0;
+  padding: 0;
+}
+article, aside, footer, header, hgroup, nav, section, audio, canvas, video {
+    display: block;
+}
+body {
+    width: 100%;
+    font-size: 100%; background: #fff;
+    font-family: Microsoft YaHei,\5FAE\8F6F,Helvetica,STHeiti,Droid Sans Fallback;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+textarea{ resize: none;}
+iframe,img{ border:0;}
+img{ vertical-align:top;}
+ul,ol{list-style:none;}
+input,
+select,
+textarea {
+    outline: 0;
+    -webkit-user-modify: read-write-plaintext-only;
+}
+input { -webkit-appearance: none;}
+a{
+    color:#333;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    text-decoration: none;
+}
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+.clearfix:after{ content:''; clear:both; display:block;}
+
+
+/* icon */
+i[class ^= "icon"] {
+    display: inline-block;
+}
+i.icon-sex {
+    width: 27px;
+    height: 32px;
+}
