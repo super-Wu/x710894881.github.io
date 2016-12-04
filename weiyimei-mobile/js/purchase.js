@@ -96,7 +96,7 @@ var tpl = {
                  +      '</div>'
                  +      '<div class="seat-number">'
                  +          '<span class="minus '+ show +'"><i class="icon"></i></span>'
-                 +          '<input type="number" name="number" value="'+ data[i].number +'">'
+                 +          '<input type="number" name="number" value="'+ data[i].number +'" readonly>'
                  +          '<span class="plus"><i class="icon"></i></span>'
                  +      '</div>'
                  + '</li>';
